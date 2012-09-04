@@ -1,4 +1,4 @@
-# Notify custom users plugin
+# Notify custom users redmine plugin
 
 Email Notifications for Custom field with User type
 
