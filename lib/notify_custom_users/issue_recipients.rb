@@ -4,7 +4,7 @@ module NotifyCustomUsers
       # find users selected in custom fields with type 'user'
       base.send :define_method, :custom_users do
         custom_user_values = custom_field_values.select do |v|
-          v.custom_field.field_format == "user"
+          v.value.present? && v.custom_field.field_format == "user"
         end
         custom_user_ids = custom_user_values.map(&:value).flatten.compact
         User.find(custom_user_ids)
@@ -13,10 +13,14 @@ module NotifyCustomUsers
       # users selected in custom fields with type 'user' before change
       base.send :define_method, :custom_users_was do
         if @custom_values_before_change
-          custom_user_values = @custom_values_before_change.select do |v|
-            v.custom_field.field_format == "user"
+          custom_user_values = custom_field_values.select do |v|
+            before = @custom_values_before_change[v.custom_field_id]
+            before.present? && v.custom_field.field_format == "user"
           end
-          custom_user_ids = custom_user_values.map(&:value).flatten.compact
+          custom_user_ids = custom_user_values.map do |v|
+            @custom_values_before_change[v.custom_field_id]
+          end
+          custom_user_ids.flatten.compact!
           User.find(custom_user_ids)
         else
           []
@@ -27,7 +31,7 @@ module NotifyCustomUsers
       base.send :define_method, :recipients_with_custom_users do
         notified = recipients_without_custom_users
 
-        notified_custom_users = custom_users.select do |u|
+        notified_custom_users = (custom_users + custom_users_was).select do |u|
           u.active? && u.notify_custom_user?(self) && visible?(u)
         end
 
