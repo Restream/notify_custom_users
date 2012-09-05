@@ -9,3 +9,7 @@
 ### 0.0.2
 
 - fix: exception when custom field empty
+
+### 0.0.3
+
+- using journal for retrieve previous values

@@ -4,23 +4,23 @@ module NotifyCustomUsers
       # find users selected in custom fields with type 'user'
       base.send :define_method, :custom_users do
         custom_user_values = custom_field_values.select do |v|
-          v.value.present? && v.custom_field.field_format == "user"
+          v.custom_field.field_format == "user"
         end
-        custom_user_ids = custom_user_values.map(&:value).flatten.compact
+        custom_user_ids = custom_user_values.map(&:value).flatten
+        custom_user_ids.reject! { |id| id.blank? }
         User.find(custom_user_ids)
       end
 
       # users selected in custom fields with type 'user' before change
       base.send :define_method, :custom_users_was do
-        if @custom_values_before_change
-          custom_user_values = custom_field_values.select do |v|
-            before = @custom_values_before_change[v.custom_field_id]
-            before.present? && v.custom_field.field_format == "user"
+        if last_journal_id && (journal = journals.find(last_journal_id))
+          custom_user_ids = []
+          journal.details.each do |det|
+            c_user_field = custom_field_values.detect do |v|
+              det.prop_key == v.custom_field_id.to_s && v.custom_field.field_format == 'user'
+            end
+            custom_user_ids << det.old_value if c_user_field && det.old_value.present?
           end
-          custom_user_ids = custom_user_values.map do |v|
-            @custom_values_before_change[v.custom_field_id]
-          end
-          custom_user_ids.flatten.compact!
           User.find(custom_user_ids)
         else
           []
@@ -34,7 +34,6 @@ module NotifyCustomUsers
         notified_custom_users = (custom_users + custom_users_was).select do |u|
           u.active? && u.notify_custom_user?(self) && visible?(u)
         end
-
         notified += notified_custom_users.map(&:mail)
         notified.uniq
       end
