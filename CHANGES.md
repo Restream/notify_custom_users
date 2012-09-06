@@ -13,3 +13,7 @@
 ### 0.0.3
 
 - using journal for retrieve previous values
+
+### 0.0.4
+
+- some refactoring

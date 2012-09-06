@@ -1,8 +1,15 @@
 module NotifyCustomUsers
-  module IssueRecipients
+  module IssuePatch
     def self.included(base)
+      base.send :include, InstanceMethods
+      base.class_eval do
+        alias_method_chain :recipients, :custom_users
+      end
+    end
+
+    module InstanceMethods
       # find users selected in custom fields with type 'user'
-      base.send :define_method, :custom_users do
+      def custom_users
         custom_user_values = custom_field_values.select do |v|
           v.custom_field.field_format == "user"
         end
@@ -12,7 +19,7 @@ module NotifyCustomUsers
       end
 
       # users selected in custom fields with type 'user' before change
-      base.send :define_method, :custom_users_was do
+      def custom_users_was
         if last_journal_id && (journal = journals.find(last_journal_id))
           custom_user_ids = []
           journal.details.each do |det|
@@ -28,7 +35,7 @@ module NotifyCustomUsers
       end
 
       # add 'custom users' to recipients
-      base.send :define_method, :recipients_with_custom_users do
+      def recipients_with_custom_users
         notified = recipients_without_custom_users
 
         notified_custom_users = (custom_users + custom_users_was).select do |u|
@@ -37,9 +44,6 @@ module NotifyCustomUsers
         notified += notified_custom_users.map(&:mail)
         notified.uniq
       end
-      base.send :alias_method_chain, :recipients, :custom_users
     end
   end
 end
-
-::Issue.send :include, NotifyCustomUsers::IssueRecipients
