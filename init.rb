@@ -1,13 +1,6 @@
 require 'redmine'
 
-callbacks = if Redmine::VERSION::MAJOR < 2
-  require 'dispatcher'
-  Dispatcher
-else
-  ActionDispatch::Callbacks
-end
-
-callbacks.to_prepare do
+ActionDispatch::Callbacks.to_prepare do
   require_dependency 'project'
   require_dependency 'principal'
   require_dependency 'user'
@@ -24,8 +17,8 @@ Redmine::Plugin.register :notify_custom_users do
   name 'Notify Custom Users plugin'
   author 'danil.tashkinov@gmail.com'
   description 'Email Notifications for Custom field with User type'
-  version '0.0.4'
+  version '0.0.5'
   url 'https://github.com/Undev/notify_custom_users'
   author_url 'http://github.com/Undev'
-  requires_redmine :version_or_higher => '1.4.0'
+  requires_redmine :version_or_higher => '2.2.0'
 end

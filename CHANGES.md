@@ -17,3 +17,8 @@
 ### 0.0.4
 
 - some refactoring
+
+### 0.0.5
+
+- added tests
+- added compatibility to redmine 2.2

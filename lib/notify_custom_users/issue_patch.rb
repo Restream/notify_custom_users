@@ -3,7 +3,7 @@ module NotifyCustomUsers
     def self.included(base)
       base.send :include, InstanceMethods
       base.class_eval do
-        alias_method_chain :recipients, :custom_users
+        alias_method_chain :notified_users, :custom_users
       end
     end
 
@@ -34,14 +34,14 @@ module NotifyCustomUsers
         end
       end
 
-      # add 'custom users' to recipients
-      def recipients_with_custom_users
-        notified = recipients_without_custom_users
+      # add 'custom users' to notified_users
+      def notified_users_with_custom_users
+        notified = notified_users_without_custom_users
 
         notified_custom_users = (custom_users + custom_users_was).select do |u|
           u.active? && u.notify_custom_user?(self) && visible?(u)
         end
-        notified += notified_custom_users.map(&:mail)
+        notified += notified_custom_users
         notified.uniq
       end
     end
