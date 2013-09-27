@@ -1,5 +1,8 @@
 # Notify custom users redmine plugin
 
+[![Build Status](https://travis-ci.org/Undev/notify_custom_users.png)](https://travis-ci.org/Undev/notify_custom_users)
+[![Code Climate](https://codeclimate.com/github/Undev/notify_custom_users.png)](https://codeclimate.com/github/Undev/notify_custom_users)
+
 Email Notifications for Custom field with User type
 
 ## Install
