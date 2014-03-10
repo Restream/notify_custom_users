@@ -10,10 +10,21 @@ class MailerTest < ActiveSupport::TestCase
            :enabled_modules,
            :issue_statuses, :enumerations
 
+  class EmailCollector
+    include Singleton
+
+    attr_accessor :messages
+
+    def self.delivering_email(message)
+      instance.messages ||= []
+      instance.messages << message
+    end
+  end
+
   def setup
     @cf = IssueCustomField.create(
-        :name => "tester",
-        :field_format => "user",
+        :name => 'tester',
+        :field_format => 'user',
         :is_required => false,
         :is_for_all => true,
         :multiple => false)
@@ -28,14 +39,16 @@ class MailerTest < ActiveSupport::TestCase
     @issue.save
 
     ActionMailer::Base.deliveries.clear
+    ActionMailer::Base.register_interceptor(EmailCollector)
+    EmailCollector.instance.messages = []
     Setting.host_name = 'mydomain.foo'
     Setting.protocol = 'http'
     Setting.plain_text_mail = '0'
   end
 
   def test_mail_to_custom_users
-    mail = Mailer.issue_edit(@journal)
-    mail_recipients = mail_recipients(mail)
+    deliver_issue_edit(@journal)
+    mail_recipients = mail_recipients
     assert_includes mail_recipients, @custom_user.mail
   end
 
@@ -43,17 +56,27 @@ class MailerTest < ActiveSupport::TestCase
     issue = Issue.find(4)
     journal = issue.init_journal(issue.author)
 
-    issue.custom_field_values = { @cf.id.to_s => "" }
+    issue.custom_field_values = { @cf.id.to_s => '' }
     issue.save
 
-    mail = Mailer.issue_edit(journal)
-    mail_recipients = mail_recipients(mail)
+    deliver_issue_edit(journal)
+    mail_recipients = mail_recipients
     assert_includes mail_recipients, @custom_user.mail
   end
 
   private
 
-  def mail_recipients(mail)
-    (mail.to + mail.cc + mail.bcc).flatten.uniq.reject(&:blank?)
+  def mail_recipients
+    EmailCollector.instance.messages.map do |message|
+      message.to + message.cc + message.bcc
+    end.flatten.uniq.reject(&:blank?)
+  end
+
+  def deliver_issue_edit(journal)
+    if Redmine::VERSION.to_s >= '2.4'
+      Mailer.deliver_issue_edit(journal)
+    else
+      Mailer.issue_edit(journal)
+    end
   end
 end
