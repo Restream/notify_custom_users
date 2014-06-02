@@ -15,10 +15,10 @@ end
 
 Redmine::Plugin.register :notify_custom_users do
   name 'Notify Custom Users plugin'
-  author 'danil.tashkinov@gmail.com'
+  author 'nodecarter'
   description 'Email Notifications for Custom field with User type'
-  version '0.0.6'
+  version '0.0.7'
   url 'https://github.com/Undev/notify_custom_users'
   author_url 'http://github.com/Undev'
-  requires_redmine :version_or_higher => '2.2.0'
+  requires_redmine :version_or_higher => '2.2.4'
 end
