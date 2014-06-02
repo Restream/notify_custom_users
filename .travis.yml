@@ -10,8 +10,11 @@ rvm:
 env:
   - REDMINE_VER=2.2.4
   - REDMINE_VER=2.3.4
+  - REDMINE_VER=2.4.3
   - REDMINE_VER=2.4.4
+  - REDMINE_VER=2.4.5
   - REDMINE_VER=2.5.0
+  - REDMINE_VER=2.5.1
 
 matrix:
   exclude:
