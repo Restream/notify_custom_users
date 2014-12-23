@@ -7,7 +7,7 @@ This plugin automatically sends email notifications to users specified in the **
 
 ## Compatibility
 
-This plugin version is compatible only with Redmine 2.2.x and above.
+This plugin version is compatible only with Redmine 2.2.x and later.
 
 ## Installation
 
