@@ -14,9 +14,9 @@ ActionDispatch::Callbacks.to_prepare do
 end
 
 Redmine::Plugin.register :notify_custom_users do
-  name 'Notify Custom Users plugin'
-  author 'nodecarter'
-  description 'Email Notifications for Custom field with User type'
+  name 'Redmine Plugin for Notifying Custom Users'
+  author 'Undev'
+  description 'Email notifications for users specified in the Custom field of the User format.'
   version '0.0.7'
   url 'https://github.com/Undev/notify_custom_users'
   author_url 'http://github.com/Undev'
