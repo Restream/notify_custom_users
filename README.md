@@ -43,7 +43,7 @@ To create a custom field in Redmine
 3. Select the **User** format in the drop-down list and specify the field name. Click **Save**.  
   ![create custom field](notify_custom_users_2.PNG)
 
-When you create or edit an issue, you can use the created field to select a user you want to notify by email.
+When you create or edit an issue, you can use the created field to select a user you want to notify by email.  
 ![select user](notify_custom_users_3.PNG)
 
 ## License
