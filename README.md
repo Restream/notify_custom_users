@@ -22,7 +22,7 @@ This plugin version is compatible only with Redmine 2.2.4 and later.
             
       Copy the plugin from GitHub using the following commands:
       
-            git clone git://github.com/Undev/notify_custom_users.git plugins/notify_custom_users
+            git clone https://github.com/Undev/notify_custom_users.git plugins/notify_custom_users
             
 2. Update the Gemfile.lock file by running the following commands:  
 
