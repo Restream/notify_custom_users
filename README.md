@@ -35,7 +35,7 @@ Now you should be able to see the plugin in **Administration > Plugins**.
 
 ## Usage
 
-This plugin sends email notifications to users specified in the **Custom field** of the **User** format. Before sending a notification, the plugins checks whether the user has the required permissions with regard to the corresponding project. If the user specified in the custom field is changed, both the previous user and the new user will receive notifications.
+This plugin sends email notifications to users specified in the **Custom field** of the **User** format. Before sending a notification, the plugin checks whether the user has the required permissions with regard to the corresponding project. If the user specified in the custom field is changed, both the previous user and the new user will receive notifications.
  
 To create a custom field in Redmine
 
