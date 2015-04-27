@@ -48,6 +48,10 @@ To create a custom field in Redmine
 When you create or edit an issue, you can use the created field to select a user you want to notify by email.  
 ![select user](notify_custom_users_3.PNG)
 
+## Maintainers
+
+Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
+
 ## License
 
 Copyright (c) 2015 Undev
