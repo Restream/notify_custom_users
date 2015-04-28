@@ -17,7 +17,7 @@ Redmine::Plugin.register :notify_custom_users do
   name 'Redmine Plugin for Notifying Custom Users'
   author 'Undev'
   description 'This plugin sends email notifications to users specified in the Custom field of the User format.'
-  version '0.0.7'
+  version '1.0.0'
   url 'https://github.com/Undev/notify_custom_users'
   author_url 'http://github.com/Undev'
   requires_redmine :version_or_higher => '2.2.4'
