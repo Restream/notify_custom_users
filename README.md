@@ -1,13 +1,13 @@
 # Redmine Plugin for Notifying Custom Users
 
-[![Build Status](https://travis-ci.org/Undev/notify_custom_users.png)](https://travis-ci.org/Undev/notify_custom_users)
-[![Code Climate](https://codeclimate.com/github/Undev/notify_custom_users.png)](https://codeclimate.com/github/Undev/notify_custom_users)
+[![Build Status](https://travis-ci.org/Restream/notify_custom_users.png)](https://travis-ci.org/Restream/notify_custom_users)
+[![Code Climate](https://codeclimate.com/github/Restream/notify_custom_users.png)](https://codeclimate.com/github/Restream/notify_custom_users)
 
 This plugin automatically sends email notifications to users specified in the **Custom field** of the **User** format.
 
 ## Compatibility
 
-This plugin version is compatible only with Redmine 2.2.4 and later.
+This plugin version is compatible only with Redmine 3.3.0 and later.
 
 ## Installation
 
@@ -22,14 +22,9 @@ This plugin version is compatible only with Redmine 2.2.4 and later.
             
       Copy the plugin from GitHub using the following commands:
       
-            git clone https://github.com/Undev/notify_custom_users.git plugins/notify_custom_users
+            git clone https://github.com/Restream/notify_custom_users.git plugins/notify_custom_users
             
-2. Update the Gemfile.lock file by running the following commands:  
-
-         rm Gemfile.lock  
-         bundle install
-            
-3. Restart Redmine.
+2. Restart Redmine.
 
 Now you should be able to see the plugin in **Administration > Plugins**.
 
@@ -40,13 +35,13 @@ This plugin sends email notifications to users specified in the **Custom field**
 To create a custom field in Redmine
 
 1. Go to **Administration > Custom fields** and click **New custom field**.  
-  ![create custom field](notify_custom_users_1.PNG)
+  ![create custom field](doc/notify_custom_users_1.png)
 2. Select the required type of object to which you want to attach the custom field, e.g. **Issues**. Click **Next**.
 3. Select the **User** format in the drop-down list and specify the field name. Click **Save**.  
-  ![create custom field](notify_custom_users_2.PNG)
+  ![create custom field](doc/notify_custom_users_2.png)
 
 When you create or edit an issue, you can use the created field to select a user you want to notify by email.  
-![select user](notify_custom_users_3.PNG)
+![select user](doc/notify_custom_users_3.png)
 
 ## Maintainers
 
@@ -54,7 +49,7 @@ Danil Tashkinov, [github.com/nodecarter](https://github.com/nodecarter)
 
 ## License
 
-Copyright (c) 2015 Undev
+Copyright (c) 2016 Restream
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

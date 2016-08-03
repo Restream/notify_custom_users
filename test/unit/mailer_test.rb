@@ -2,8 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class MailerTest < ActiveSupport::TestCase
   include Redmine::I18n
-  include ActionDispatch::Assertions::SelectorAssertions
-  fixtures :projects, :issues, :users, :members,
+  fixtures :projects, :issues, :users, :email_addresses, :members,
            :member_roles, :roles,
            :journals, :journal_details,
            :trackers, :projects_trackers,
@@ -11,6 +10,11 @@ class MailerTest < ActiveSupport::TestCase
            :issue_statuses, :enumerations
 
   def setup
+    Setting.host_name = 'mydomain.foo'
+    Setting.protocol = 'http'
+    Setting.plain_text_mail = '0'
+    Setting.default_language = 'en'
+
     @cf = IssueCustomField.create(
         :name => 'tester',
         :field_format => 'user',
@@ -21,16 +25,16 @@ class MailerTest < ActiveSupport::TestCase
     @cf.trackers << Tracker.all
 
     @custom_user = User.find(8)
+    @editor = User.find(2)
+
     @issue = Issue.find(4)
-    @journal = @issue.init_journal(@custom_user)
+    @journal = @issue.init_journal(@editor)
 
     @issue.custom_field_values = { @cf.id.to_s => @custom_user.id.to_s }
     @issue.save!
 
+    User.current = @editor
     ActionMailer::Base.deliveries.clear
-    Setting.host_name = 'mydomain.foo'
-    Setting.protocol = 'http'
-    Setting.plain_text_mail = '0'
   end
 
   def test_mail_to_custom_users

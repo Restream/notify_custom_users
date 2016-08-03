@@ -22,3 +22,7 @@
 
 - added tests
 - added compatibility to redmine 2.2
+
+### 1.0.2
+
+- requires redmine 3.3.0 or newer

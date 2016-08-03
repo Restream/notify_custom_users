@@ -1,0 +1,3 @@
+test:
+  email_delivery:
+    delivery_method: :test
