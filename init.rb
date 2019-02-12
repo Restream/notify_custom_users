@@ -1,6 +1,7 @@
 require 'redmine'
 
-(Rails.version < '5.1' ? ActionDispatch::Callbacks : ActiveSupport::Reloader).to_prepare do  require_dependency 'project'
+(Rails.version < '5.1' ? ActionDispatch::Callbacks : ActiveSupport::Reloader).to_prepare do
+  require_dependency 'project'
   require_dependency 'principal'
   require_dependency 'user'
   require_dependency 'issue'
