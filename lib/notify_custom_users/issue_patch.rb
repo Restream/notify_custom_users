@@ -3,7 +3,8 @@ module NotifyCustomUsers
     def self.included(base)
       base.send :include, InstanceMethods
       base.class_eval do
-        alias_method_chain :notified_users, :custom_users
+        alias_method :notified_users_without_custom_users, :notified_users
+        alias_method :notified_users, :notified_users_with_custom_users
       end
     end
 
